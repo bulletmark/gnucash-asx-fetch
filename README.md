@@ -68,9 +68,15 @@ https://github.com/bulletmark/gnucash-asx-fetch.
 
 Python 3.6 or later is required.
 
-Note [gnucash-asx-fetch is on PyPI](https://pypi.org/project/gnucash-asx-fetch/) so you can just
-type `sudo pip3 install gnucash-asx-fetch`.
+Note [gnucash-asx-fetch is on
+PyPI](https://pypi.org/project/gnucash-asx-fetch/) so you can just type:
 
+```
+$ sudo pip3 install gnucash-asx-fetch
+```
+
+Arch Linux users can install [gnucash-asx-fetch from the
+AUR](https://aur.archlinux.org/packages/gnucash-asx-fetch/).
 Alternately, do the following to install from the source repository.
 
 ```sh

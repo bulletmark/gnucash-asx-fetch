@@ -2,7 +2,7 @@
 
 This is a command line utility to fetch and update
 [ASX](https://asx.com.au) share prices to one or more
-[GnuCash](https://www.gnucash.org/) XML files. It takes multiple
+[GnuCash](https://www.gnucash.org/) XML files. It takes multiple path
 arguments: one of more GnuCash files, or directories. If a directory is
 given then it updates all the GnuCash files in that directory. It can
 not update any GnuCash files that are currently open so will generate an
@@ -31,12 +31,12 @@ GnuCash uses the [Finance::Quote](https://github.com/finance-quote)
 module to update share prices but I have found it fragile over the short
 time I have been using GnuCash. E.g. At the time I created this utility,
 ASX price fetches via [Finance::Quote](https://github.com/finance-quote)
-have not been working at all for more than 3 months as per [this
+have not worked for more than 3 months as per [this
 bug](https://github.com/finance-quote/finance-quote/issues/166).
 
 Fetching prices from [ASX](https://asx.com.au) is actually quite easy
 and this utility uses a simple approach. By merely requiring the user to
-not have the file open at the time he updates the prices, it can avoid
+not have the file open at the time the prices are updated, it can avoid
 the awkward interface with
 [Finance::Quote](https://github.com/finance-quote) and GnuCash
 completely, and merely write directly to the XML file.

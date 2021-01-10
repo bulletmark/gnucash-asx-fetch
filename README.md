@@ -6,9 +6,10 @@ This is a command line utility to fetch and update
 arguments: one of more GnuCash files, or directories. If a directory is
 given then it updates all the GnuCash files in that directory. It can
 not update any GnuCash files that are currently open so will generate an
-error message for those files. A new price entry is added every time you
-run it. Open the GnuCash price database editor for a file to view, edit,
-or remove the new entries added.
+error message for those files. A new price entry is added for each ASX
+share existing in the file each time you run it. Open the GnuCash price
+database editor for a file to view, edit, or remove the new entries
+added.
 
 For example, to update the share prices of all the ASX shares in all the
 GnuCash files in the current directory type:
@@ -69,7 +70,8 @@ https://github.com/bulletmark/gnucash-asx-fetch.
 Python 3.6 or later is required.
 
 Note [gnucash-asx-fetch is on
-PyPI](https://pypi.org/project/gnucash-asx-fetch/) so you can just type:
+PyPI](https://pypi.org/project/gnucash-asx-fetch/) so you can just type
+the following to install or upgrade:
 
 ```
 $ sudo pip3 install -U gnucash-asx-fetch

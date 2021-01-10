@@ -28,7 +28,7 @@ TEMPLATE = '''
     <price:time>
       <ts:date>{dt}</ts:date>
     </price:time>
-    <price:source>user:price</price:source>
+    <price:source>Finance::Quote</price:source>
     <price:type>last</price:type>
     <price:value>{price}</price:value>
   </price>

@@ -72,7 +72,7 @@ Note [gnucash-asx-fetch is on
 PyPI](https://pypi.org/project/gnucash-asx-fetch/) so you can just type:
 
 ```
-$ sudo pip3 install gnucash-asx-fetch
+$ sudo pip3 install -U gnucash-asx-fetch
 ```
 
 Arch Linux users can install [gnucash-asx-fetch from the

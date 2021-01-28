@@ -12,10 +12,10 @@
 # General Public License at <http://www.gnu.org/licenses/> for more
 # details.
 
-NAME = gnucash-asx-fetch
-PNAME = $(subst -,_,$(NAME))
-
+NAME = $(shell basename $(CURDIR))
 DOC = README.md
+
+PYNAME = $(subst -,_,$(NAME))
 DOCOUT = $(DOC:.md=.html)
 
 all:
@@ -29,10 +29,11 @@ uninstall:
 	pip3 uninstall $(NAME)
 
 sdist:
-	python3 setup.py sdist
+	rm -rf dist
+	python3 setup.py sdist bdist_wheel
 
 upload: sdist
-	twine3 upload dist/*
+	twine3 upload --skip-existing dist/*
 
 doc:	$(DOCOUT)
 
@@ -40,8 +41,8 @@ $(DOCOUT): $(DOC)
 	markdown $< >$@
 
 check:
-	flake8 $(PNAME).py $(NAME) setup.py
-	vermin -i -q --no-tips $(PNAME).py $(NAME) setup.py
+	flake8 $(PYNAME).py setup.py
+	vermin -i -q --no-tips $(PYNAME).py setup.py
 	python3 setup.py check
 
 clean:

@@ -2,18 +2,16 @@
 # Setup script to install this package.
 # M.Blakeney, Mar 2018.
 
-import stat
 from pathlib import Path
 from setuptools import setup
 
 name = 'gnucash-asx-fetch'
 module = name.replace('-', '_')
 here = Path(__file__).resolve().parent
-executable = stat.S_IEXEC | stat.S_IXGRP | stat.S_IXOTH
 
 setup(
     name=name,
-    version='1.2',
+    version='1.3',
     description='Utility to fetch and add current ASX prices to one or '
     'more gnucash files.',
     long_description=here.joinpath('README.md').read_text(),
@@ -31,6 +29,7 @@ setup(
     data_files=[
         ('share/{}'.format(name), ['README.md']),
     ],
-    scripts=[f.name for f in here.iterdir() if f.name.startswith(name)
-        and f.is_file() and f.stat().st_mode & executable],
+    entry_points={
+        'console_scripts': ['{}={}:main'.format(name, module)],
+    },
 )

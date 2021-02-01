@@ -49,7 +49,7 @@ facilitate working with multiple GnuCash files.
 ### USAGE
 
 ```
-usage: gnucash-asx-fetch [-h] [-i] [-q] path [path ...]
+usage: gnucash-asx-fetch [-h] [-i] [-q] [-d] path [path ...]
 
 Utility to fetch and add current ASX prices to one or more gnucash files.
 
@@ -60,6 +60,7 @@ optional arguments:
   -h, --help         show this help message and exit
   -i, --ignore-open  silently ignore any files currently open
   -q, --quiet        suppress message output
+  -d, --dry-run      do not update any file[s]
 ```
 
 See the latest documentation and code at

@@ -2,6 +2,7 @@
 'Utility to fetch and add current ASX prices to one or more gnucash files.'
 # Author: Mark Blakeney, Jan 2020.
 
+import os
 import sys
 import argparse
 import gzip
@@ -101,27 +102,33 @@ def process_file(args, path):
         print(f'Error: {path} is in use.', file=sys.stderr)
         return False
 
-    pathout = path.with_name(f'.{PROGNAME}-{path.name}')
-
+    compressed = True
     fin = gzip.open(path, 'rt')
     try:
         fin.read(1)
     except OSError:
         fin = open(path, 'rt')
-        fout = pathout.open('wt')
+        compressed = False
     else:
         fin.seek(0)
-        fout = gzip.open(pathout, 'wt')
+
+    if args.dry_run:
+        pathout = None
+        fout = open(os.devnull, 'wt')
+    else:
+        pathout = path.with_name(f'.{PROGNAME}-{path.name}')
+        fout = gzip.open(pathout, 'wt') if compressed else pathout.open('wt')
 
     changed = process(args, path, fin, fout)
 
     fin.close()
     fout.close()
 
-    if changed:
-        pathout.replace(path)
-    else:
-        pathout.unlink()
+    if pathout:
+        if changed:
+            pathout.replace(path)
+        else:
+            pathout.unlink()
 
     return True
 
@@ -158,6 +165,8 @@ def main():
             help='silently ignore any files currently open')
     opt.add_argument('-q', '--quiet', action='store_true',
             help='suppress message output')
+    opt.add_argument('-d', '--dry-run', action='store_true',
+            help='do not update any file[s]')
     opt.add_argument('path', nargs='+',
             help='directories or files to update')
     args = opt.parse_args()

@@ -13,7 +13,7 @@ setup(
     name=name,
     version='1.4',
     description='Utility to fetch and add current ASX prices to one or '
-    'more gnucash files.',
+    'more gnucash XML files.',
     long_description=here.joinpath('README.md').read_text(),
     long_description_content_type='text/markdown',
     url='https://github.com/bulletmark/{}'.format(name),

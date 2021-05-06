@@ -102,8 +102,8 @@ def process_file(args, path):
         print(f'Error: {path} is in use.', file=sys.stderr)
         return False
 
-    compressed = True
     fin = gzip.open(path, 'rt')
+    compressed = True
     try:
         fin.read(1)
     except OSError:

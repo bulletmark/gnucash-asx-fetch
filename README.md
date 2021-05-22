@@ -51,7 +51,8 @@ facilitate working with multiple GnuCash files.
 ```
 usage: gnucash-asx-fetch [-h] [-i] [-q] [-d] path [path ...]
 
-Utility to fetch and add current ASX prices to one or more gnucash files.
+Utility to fetch and add current ASX share prices to one or more gnucash XML
+files.
 
 positional arguments:
   path               directories or files to update

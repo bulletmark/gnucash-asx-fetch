@@ -11,7 +11,7 @@ here = Path(__file__).resolve().parent
 
 setup(
     name=name,
-    version='1.4',
+    version='1.5',
     description='Utility to fetch and add current ASX prices to one or '
     'more gnucash XML files.',
     long_description=here.joinpath('README.md').read_text(),

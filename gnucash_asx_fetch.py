@@ -1,5 +1,8 @@
 #!/usr/bin/python3
-'Utility to fetch and add current ASX prices to one or more gnucash files.'
+'''
+Utility to fetch and add current ASX share prices to one or more gnucash
+XML files.
+'''
 # Author: Mark Blakeney, Jan 2020.
 
 import os
@@ -57,7 +60,7 @@ def getprice(args, path, code):
         cache[code] = (price, pricef)
 
     if not args.quiet:
-        print(f'Fetched {code:4} @ ${price} ({pricef}) for {path.name}')
+        print(f'Fetched {code:4} @ ${price} for {path.name}')
 
     return TEMPLATE.format(code=code, dt=now, price=pricef)
 
@@ -174,12 +177,12 @@ def main():
     now = datetime.now().astimezone().isoformat(sep=' ',
             timespec='seconds').replace('+', ' +')
 
-    error = False
+    error = 0
     for path in args.path:
         if not process_path(args, Path(path)):
-            error = True
+            error = 1
 
-    return 1 if error else 0
+    return error
 
 if __name__ == '__main__':
     sys.exit(main())

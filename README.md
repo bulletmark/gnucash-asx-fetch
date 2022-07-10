@@ -1,4 +1,6 @@
 ## GNUCASH-ASX-FETCH
+[![PyPi](https://img.shields.io/pypi/v/gnucash-asx-fetch)](https://pypi.org/project/gnucash-asx-fetch/)
+[![AUR](https://img.shields.io/aur/version/gnucash-asx-fetch)](https://aur.archlinux.org/packages/gnucash-asx-fetch/)
 
 This is a command line utility to fetch and update
 [ASX](https://asx.com.au) share prices to one or more

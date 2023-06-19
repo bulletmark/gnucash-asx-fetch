@@ -71,40 +71,22 @@ https://github.com/bulletmark/gnucash-asx-fetch.
 
 ### INSTALLATION
 
-Python 3.6 or later is required. Note [gnucash-asx-fetch is on
-PyPI](https://pypi.org/project/gnucash-asx-fetch/) so just ensure that
-`python3-pip` and `python3-wheel` are installed then type the following
-to install (or upgrade):
-
-```
-$ sudo pip3 install -U gnucash-asx-fetch
-```
-
 Arch Linux users can install [gnucash-asx-fetch from the
 AUR](https://aur.archlinux.org/packages/gnucash-asx-fetch/).
-Alternately, do the following to install from the source repository.
 
-```sh
-$ git clone http://github.com/bulletmark/gnucash-asx-fetch
-$ cd gnucash-asx-fetch
+Python 3.6 or later is required. Note [gnucash-asx-fetch is on
+PyPI](https://pypi.org/project/gnucash-asx-fetch/) so just ensure that
+[`pipx`](https://pypa.github.io/pipx/) is installed then type the
+following:
 
-# Install globally ..
-$ sudo pip3 install -U .
+```
+$ pipx install gnucash-asx-fetch
 ```
 
-### UPGRADE
+To upgrade:
 
-```sh
-$ cd gnucash-asx-fetch  # Source dir, as above
-$ git pull
-
-$ sudo pip3 install -U .
 ```
-
-### REMOVAL
-
-```sh
-$ sudo pip3 uninstall gnucash-asx-fetch
+$ pipx upgrade gnucash-asx-fetch
 ```
 
 ### LICENSE

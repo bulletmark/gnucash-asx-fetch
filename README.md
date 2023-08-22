@@ -28,7 +28,10 @@ silently skips GnuCash backup and log files.
 This utility should work on any modern Linux platform and has been
 developed against GnuCash v4.4.
 
-### MOTIVATION
+See the latest documentation and code at
+https://github.com/bulletmark/gnucash-asx-fetch.
+
+## MOTIVATION
 
 GnuCash uses the [Finance::Quote](https://github.com/finance-quote)
 module to update share prices but I have found it fragile over the short
@@ -48,7 +51,9 @@ If you like this utility then you may be interested in [another
 utility](https://github.com/bulletmark/gnucash-select) I created to
 facilitate working with multiple GnuCash files.
 
-### USAGE
+## USAGE
+
+Type `gnucash-asx-fetch -h` to view the usage summary:
 
 ```
 usage: gnucash-asx-fetch [-h] [-i] [-q] [-d] path [path ...]
@@ -59,17 +64,14 @@ files.
 positional arguments:
   path               directories or files to update
 
-optional arguments:
+options:
   -h, --help         show this help message and exit
   -i, --ignore-open  silently ignore any files currently open
   -q, --quiet        suppress message output
   -d, --dry-run      do not update any file[s]
 ```
 
-See the latest documentation and code at
-https://github.com/bulletmark/gnucash-asx-fetch.
-
-### INSTALLATION
+## INSTALLATION
 
 Arch Linux users can install [gnucash-asx-fetch from the
 AUR](https://aur.archlinux.org/packages/gnucash-asx-fetch/).
@@ -89,7 +91,7 @@ To upgrade:
 $ pipx upgrade gnucash-asx-fetch
 ```
 
-### LICENSE
+## LICENSE
 
 Copyright (C) 2020 Mark Blakeney. This program is distributed under the
 terms of the GNU General Public License.

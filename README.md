@@ -76,7 +76,7 @@ options:
 Arch Linux users can install [gnucash-asx-fetch from the
 AUR](https://aur.archlinux.org/packages/gnucash-asx-fetch/).
 
-Python 3.6 or later is required. Note [gnucash-asx-fetch is on
+Python 3.7 or later is required. Note [gnucash-asx-fetch is on
 PyPI](https://pypi.org/project/gnucash-asx-fetch/) so just ensure that
 [`pipx`](https://pypa.github.io/pipx/) is installed then type the
 following:

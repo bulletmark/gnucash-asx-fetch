@@ -4,17 +4,19 @@ Utility to fetch and add current ASX share prices to one or more gnucash
 XML files.
 '''
 # Author: Mark Blakeney, Jan 2020.
+from __future__ import annotations
 
-import argparse
 import gzip
 import os
 import re
 import sys
+from argparse import ArgumentParser, Namespace
 from datetime import datetime
 from fractions import Fraction
 from pathlib import Path
+from typing import TextIO
 
-from yfinance import Ticker
+from yfinance import Ticker  # type: ignore
 
 PROGNAME = Path(sys.argv[0]).name
 LOCKEXT = '.LCK'
@@ -46,7 +48,7 @@ match_end = temp[-1]
 now = None
 cache = {}
 
-def getprice(args, path, code):
+def getprice(args: Namespace, path: Path, code: str) -> str | None:
     'Get price for given code and return template'
     price, pricef = cache.get(code, (None, None))
     if price is None:
@@ -68,7 +70,8 @@ def getprice(args, path, code):
 
     return TEMPLATE.format(code=code, dt=now, price=pricef)
 
-def process(args, path, fin, fout):
+def process(args: Namespace, path: Path, fin: TextIO,
+            fout: TextIO) -> bool:
     'Process the given input to the given output'
     buffer = []
     next_code = False
@@ -99,7 +102,7 @@ def process(args, path, fin, fout):
 
     return changed
 
-def process_file(args, path):
+def process_file(args: Namespace, path: Path) -> bool:
     'Process given file'
     lockfile = path.with_name(path.name + LOCKEXT)
     if lockfile.exists():
@@ -124,7 +127,8 @@ def process_file(args, path):
         fout = open(os.devnull, 'wt')
     else:
         pathout = path.with_name(f'.{PROGNAME}-{path.name}')
-        fout = gzip.open(pathout, 'wt') if compressed else pathout.open('wt')
+        fout = gzip.open(pathout, 'wt') if compressed \
+                else pathout.open('wt')  # type: ignore
 
     changed = process(args, path, fin, fout)
 
@@ -139,7 +143,7 @@ def process_file(args, path):
 
     return True
 
-def process_path(args, path):
+def process_path(args: Namespace, path: Path) -> bool:
     'Process given path (file, or dir of files)'
     if not path.exists():
         print(f'{path} does not exist', file=sys.stderr)
@@ -156,18 +160,18 @@ def process_path(args, path):
                     allok = False
 
         if allok and nofile:
-            print('No gnucash files found', file=sys.stderr)
+            print('No gnucash files found.', file=sys.stderr)
             allok = False
     else:
         allok = process_file(args, path)
 
     return allok
 
-def main():
+def main() -> int:
     'Main code'
     global now
     # Process command line options
-    opt = argparse.ArgumentParser(description=__doc__.strip())
+    opt = ArgumentParser(description=__doc__.strip())
     opt.add_argument('-i', '--ignore-open', action='store_true',
             help='silently ignore any files currently open')
     opt.add_argument('-q', '--quiet', action='store_true',

@@ -6,7 +6,7 @@ build-backend = "setuptools.build_meta"
 name = "gnucash-asx-fetch"
 description = "Utility to fetch and add current ASX prices to one or more gnucash XML files"
 readme = "README.md"
-requires-python = ">=3.6"
+requires-python = ">=3.7"
 keywords = ["gnucash", "finance-quote"]
 classifiers = [
   "Programming Language :: Python :: 3",

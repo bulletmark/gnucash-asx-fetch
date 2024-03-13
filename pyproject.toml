@@ -13,7 +13,7 @@ classifiers = [
 ]
 dynamic = ["version"]
 dependencies = [
-  "requests"
+  "yfinance[optional]",
 ]
 
 [[project.authors]]

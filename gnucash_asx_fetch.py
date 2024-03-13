@@ -5,17 +5,17 @@ XML files.
 '''
 # Author: Mark Blakeney, Jan 2020.
 
-import os
-import sys
 import argparse
 import gzip
+import os
 import re
-import requests
-from pathlib import Path
+import sys
 from datetime import datetime
 from fractions import Fraction
+from pathlib import Path
 
-URL = 'https://www.asx.com.au/asx/1/share/{}'
+from yfinance import Ticker
+
 PROGNAME = Path(sys.argv[0]).name
 LOCKEXT = '.LCK'
 
@@ -43,7 +43,6 @@ match_start = temp[0]
 match_code = temp[2]
 match_end = temp[-1]
 
-sess = requests.Session()
 now = None
 cache = {}
 
@@ -51,11 +50,16 @@ def getprice(args, path, code):
     'Get price for given code and return template'
     price, pricef = cache.get(code, (None, None))
     if price is None:
-        r = sess.get(URL.format(code))
-        if r.status_code != requests.codes.ok:
-            print(f'Fetch error for {code}', file=sys.stderr)
+        try:
+            t = Ticker(code.upper() + '.AX')
+        except Exception as e:
+            print(f'Error fetching {code}: {str(e)}', file=sys.stderr)
             return None
-        price = r.json().get('last_price', 0)
+
+        price = t.info.get('currentPrice')
+        if price is None:
+            price = (t.info.get('dayHigh', 0) + t.info.get('dayLow', 0)) / 2.0
+
         pricef = str(Fraction(price).limit_denominator())
         cache[code] = (price, pricef)
 

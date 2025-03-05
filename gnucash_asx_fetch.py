@@ -1,8 +1,9 @@
 #!/usr/bin/python3
-'''
+"""
 Utility to fetch and add current ASX share prices to one or more gnucash
 XML files.
-'''
+"""
+
 # Author: Mark Blakeney, Jan 2020.
 from __future__ import annotations
 
@@ -21,7 +22,7 @@ from yfinance import Ticker  # type: ignore
 PROGNAME = Path(sys.argv[0]).name
 LOCKEXT = '.LCK'
 
-TEMPLATE = '''
+TEMPLATE = """
   <price>
     <price:commodity>
       <cmdty:space>ASX</cmdty:space>
@@ -38,7 +39,7 @@ TEMPLATE = '''
     <price:type>last</price:type>
     <price:value>{price}</price:value>
   </price>
-'''.lstrip('\n')
+""".lstrip('\n')
 
 temp = TEMPLATE.splitlines()
 match_start = temp[0]
@@ -48,8 +49,9 @@ match_end = temp[-1]
 now = None
 cache = {}
 
+
 def getprice(args: Namespace, path: Path, code: str) -> str | None:
-    'Get price for given code and return template'
+    "Get price for given code and return template"
     price, pricef = cache.get(code, (None, None))
     if price is None:
         try:
@@ -67,9 +69,9 @@ def getprice(args: Namespace, path: Path, code: str) -> str | None:
 
     return TEMPLATE.format(code=code, dt=now, price=pricef)
 
-def process(args: Namespace, path: Path, fin: TextIO,
-            fout: TextIO) -> bool:
-    'Process the given input to the given output'
+
+def process(args: Namespace, path: Path, fin: TextIO, fout: TextIO) -> bool:
+    "Process the given input to the given output"
     buffer = []
     next_code = False
     codes = set()
@@ -99,8 +101,9 @@ def process(args: Namespace, path: Path, fin: TextIO,
 
     return changed
 
+
 def process_file(args: Namespace, path: Path) -> bool:
-    'Process given file'
+    "Process given file"
     lockfile = path.with_name(path.name + LOCKEXT)
     if lockfile.exists():
         if args.ignore_open:
@@ -124,8 +127,7 @@ def process_file(args: Namespace, path: Path) -> bool:
         fout = open(os.devnull, 'wt')
     else:
         pathout = path.with_name(f'.{PROGNAME}-{path.name}')
-        fout = gzip.open(pathout, 'wt') if compressed \
-                else pathout.open('wt')  # type: ignore
+        fout = gzip.open(pathout, 'wt') if compressed else pathout.open('wt')  # type: ignore
 
     changed = process(args, path, fin, fout)
 
@@ -140,8 +142,9 @@ def process_file(args: Namespace, path: Path) -> bool:
 
     return True
 
+
 def process_path(args: Namespace, path: Path) -> bool:
-    'Process given path (file, or dir of files)'
+    "Process given path (file, or dir of files)"
     if not path.exists():
         print(f'{path} does not exist', file=sys.stderr)
         return False
@@ -150,8 +153,11 @@ def process_path(args: Namespace, path: Path) -> bool:
         nofile = True
         allok = True
         for f in path.glob('./*.gnucash'):
-            if not f.is_dir() and not f.name.startswith(f'.{PROGNAME}') and \
-                    '.gnucash.' not in f.name:
+            if (
+                not f.is_dir()
+                and not f.name.startswith(f'.{PROGNAME}')
+                and '.gnucash.' not in f.name
+            ):
                 nofile = False
                 if not process_file(args, f):
                     allok = False
@@ -164,23 +170,33 @@ def process_path(args: Namespace, path: Path) -> bool:
 
     return allok
 
+
 def main() -> int:
-    'Main code'
+    "Main code"
     global now
     # Process command line options
-    opt = ArgumentParser(description=__doc__.strip())
-    opt.add_argument('-i', '--ignore-open', action='store_true',
-            help='silently ignore any files currently open')
-    opt.add_argument('-q', '--quiet', action='store_true',
-            help='suppress message output')
-    opt.add_argument('-d', '--dry-run', action='store_true',
-            help='do not update any file[s]')
-    opt.add_argument('path', nargs='+',
-            help='directories or files to update')
+    opt = ArgumentParser(description=__doc__)
+    opt.add_argument(
+        '-i',
+        '--ignore-open',
+        action='store_true',
+        help='silently ignore any files currently open',
+    )
+    opt.add_argument(
+        '-q', '--quiet', action='store_true', help='suppress message output'
+    )
+    opt.add_argument(
+        '-d', '--dry-run', action='store_true', help='do not update any file[s]'
+    )
+    opt.add_argument('path', nargs='+', help='directories or files to update')
     args = opt.parse_args()
 
-    now = datetime.now().astimezone().isoformat(sep=' ',
-            timespec='seconds').replace('+', ' +')
+    now = (
+        datetime.now()
+        .astimezone()
+        .isoformat(sep=' ', timespec='seconds')
+        .replace('+', ' +')
+    )
 
     error = 0
     for path in args.path:
@@ -188,6 +204,7 @@ def main() -> int:
             error = 1
 
     return error
+
 
 if __name__ == '__main__':
     sys.exit(main())

@@ -58,10 +58,7 @@ def getprice(args: Namespace, path: Path, code: str) -> str | None:
             print(f'Error fetching {code}: {str(e)}', file=sys.stderr)
             return None
 
-        price = t.info.get('currentPrice')
-        if price is None:
-            price = (t.info.get('dayHigh', 0) + t.info.get('dayLow', 0)) / 2.0
-
+        price = t.info['regularMarketPrice']
         pricef = str(Fraction(price).limit_denominator())
         cache[code] = (price, pricef)
 

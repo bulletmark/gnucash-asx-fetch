@@ -78,7 +78,7 @@ AUR](https://aur.archlinux.org/packages/gnucash-asx-fetch/).
 
 Python 3.7 or later is required. Note [gnucash-asx-fetch is on
 PyPI](https://pypi.org/project/gnucash-asx-fetch/) so just ensure that
-[`pipx`](https://pypa.github.io/pipx/) is installed then type the
+[`pipx`](https://pipx.pypa.io/stable/) is installed then type the
 following:
 
 ```

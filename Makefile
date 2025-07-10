@@ -5,6 +5,7 @@ check:
 	mypy $(PYFILES)
 	pyright $(PYFILES)
 	vermin -vv --no-tips -i $(PYFILES)
+	md-link-checker
 
 build:
 	rm -rf dist
